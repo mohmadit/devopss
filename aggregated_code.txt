@@ -1,22 +1,5 @@
 <?php
 include 'db.php';
-
-$id = $_POST['id'];
-$username = $_POST['username'];
-$password = password_hash($_POST['password'], PASSWORD_BCRYPT);
-$role = $_POST['role'];
-
-$query = "UPDATE users SET username='$username', password='$password', role='$role' WHERE id=$id";
-
-if ($conn->query($query) === TRUE) {
-    echo "User updated successfully.";
-} else {
-    echo "Error: " . $query . "<br>" . $conn->error;
-}
-?>
-
-<?php
-include 'db.php';
 session_start();
 
 $project_id = $_POST['project_id'];
@@ -29,6 +12,20 @@ $query = "INSERT INTO tasks (project_id, task_name, description, assigned_to, st
 
 if ($conn->query($query) === TRUE) {
     echo "Task added successfully.";
+} else {
+    echo "Error: " . $query . "<br>" . $conn->error;
+}
+?>
+
+<?php
+include 'db.php';
+
+$id = $_POST['id'];
+
+$query = "DELETE FROM releases WHERE id=$id";
+
+if ($conn->query($query) === TRUE) {
+    echo "Release deleted successfully.";
 } else {
     echo "Error: " . $query . "<br>" . $conn->error;
 }
